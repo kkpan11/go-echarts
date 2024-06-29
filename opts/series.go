@@ -120,6 +120,16 @@ type LabelLine struct {
 	LineStyle *LineStyle `json:"lineStyle,omitempty"`
 }
 
+// Blur Configurations of blur state. Whether to blur follows the series.
+type Blur struct {
+
+	// the blur style of item
+	ItemStyle *ItemStyle `json:"itemStyle,omitempty"`
+
+	// the blur style of label
+	Label *Label `json:"label,omitempty"`
+}
+
 // Emphasis is the style when it is highlighted, like being hovered by mouse, or highlighted via legend connect.
 type Emphasis struct {
 	// the emphasis style of label
@@ -127,6 +137,18 @@ type Emphasis struct {
 
 	// the emphasis style of item
 	ItemStyle *ItemStyle `json:"itemStyle,omitempty"`
+}
+
+// Animation represents animation behaviors of series.
+type Animation struct {
+	Animation               types.Bool `json:"animation,omitempty"`
+	AnimationThreshold      int        `json:"animationThreshold,omitempty"`
+	AnimationDuration       int        `json:"animationDuration,omitempty"`
+	AnimationEasing         string     `json:"animationEasing,omitempty"`
+	AnimationDelay          int        `json:"animationDelay,omitempty"`
+	AnimationDurationUpdate int        `json:"animationDurationUpdate,omitempty"`
+	AnimationEasingUpdate   string     `json:"animationEasingUpdate,omitempty"`
+	AnimationDelayUpdate    int        `json:"animationDelayUpdate,omitempty"`
 }
 
 // ItemStyle represents a style of an item.
@@ -188,6 +210,12 @@ type MarkLineStyle struct {
 
 	// Mark line text options.
 	Label *Label `json:"label,omitempty"`
+
+	LineStyle *LineStyle `json:"lineStyle,omitempty"`
+
+	Emphasis *Emphasis `json:"emphasis,omitempty"`
+
+	Blur *Blur `json:"blur,omitempty"`
 }
 
 // CircularStyle contains styling options for circular layout.
@@ -208,6 +236,8 @@ type MarkLineNameTypeItem struct {
 	// It may be the direct name of a dimension, like x,
 	// or angle for line charts, or open, or close for candlestick charts.
 	ValueDim string `json:"valueDim,omitempty"`
+
+	LineStyle *LineStyle `json:"lineStyle,omitempty"`
 }
 
 // MarkLineNameYAxisItem defines a MarkLine on a Y axis.
@@ -264,6 +294,27 @@ type MarkAreas struct {
 	MarkAreaStyle
 }
 
+// MarkAreaData a generic Data struct
+type MarkAreaData struct {
+	Name     string      `json:"name,omitempty"`
+	Type     string      `json:"type,omitempty"`
+	ValueDim int         `json:"valueDim,omitempty"`
+	Coord    interface{} `json:"coord,omitempty"`
+	X        interface{} `json:"x,omitempty"`
+	Y        interface{} `json:"y,omitempty"`
+	XAxis    interface{} `json:"xAxis,omitempty"`
+	YAxis    interface{} `json:"YAxis,omitempty"`
+	MarkAreaStyle
+}
+
+type MarkAreaData0 struct {
+	LeftTop MarkAreaData `json:"0,omitempty"`
+}
+
+type MarkAreaData1 struct {
+	RightBottom MarkAreaData `json:"1,omitempty"`
+}
+
 // MarkAreaStyle contains styling options for a MarkArea.
 type MarkAreaStyle struct {
 	// Mark area text options.
@@ -271,6 +322,12 @@ type MarkAreaStyle struct {
 
 	// ItemStyle settings
 	ItemStyle *ItemStyle `json:"itemStyle,omitempty"`
+
+	// Emphasis settings
+	Emphasis *Emphasis `json:"emphasis,omitempty"`
+
+	// Blur settings
+	Blur *Blur `json:"blur,omitempty"`
 }
 
 // MarkAreaNameTypeItem represents type for a MarkArea.

@@ -4,16 +4,20 @@
     - [Dive into go-echarts](en-us/dive-into)
     - [Chart Container](en-us/chart-container)
     - [Event and Action](en-us/event-and-action)
+    - [Chart Render](en-us/render)
 - Advanced
     - [Render to Image](en-us/render-to-image)
-- [Ecosystem](en-us/ecosystem)
 - Chart Configration
-  - [Global](en-us/options/global)
-
-[//]: # (  - [Series]&#40;en-us/options/series&#41;)
-
-[//]: # (  - [Options]&#40;en-us/options/options&#41;)
-- Showcases
+    - [Global Option Summary](en-us/options/global)
+    - [Series Option Summary](en-us/options/series)
+    - Options
+        - [title](en-us/options/title)
+        - [grid](en-us/options/grid)
+        - [legend](en-us/options/legend)
+        - [xAxis](en-us/options/xAxis)
+        - [yAxis](en-us/options/yAxis)
+- [Ecosystem](en-us/ecosystem)
+- Examples with sample code
     - [Line](en-us/charts/line)
     - [Bar](en-us/charts/bar)
     - [Pie](en-us/charts/pie)
@@ -38,4 +42,3 @@
     - [Line3D](en-us/charts/line3d)
     - [Liquid](en-us/charts/liquid)
     - [WordCloud](en-us/charts/wordcloud)
-

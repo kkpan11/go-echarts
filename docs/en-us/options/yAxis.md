@@ -1,6 +1,11 @@
-package opts
+## yAxis
 
-import "github.com/go-echarts/go-echarts/v2/types"
+The y axis in cartesian(rectangular) coordinate. Usually a single grid component can place at most 2 y axis, one on the left and another on the right. offset can be used to avoid overlap when you need to put more than two y axis.
+
+## Available Option
+
+```go
+package opts
 
 // YAxis is the option set for Y axis.
 // https://echarts.apache.org/en/option.html#yAxis
@@ -95,3 +100,19 @@ type YAxis struct {
 	// Settings related to axis pointer.
 	AxisPointer *AxisPointer `json:"axisPointer,omitempty"`
 }
+
+```
+
+## ## Expect Forma
+
+```js
+option = {
+    yAxis: [{
+        type: "category",
+        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        position: "top",
+        name: "go-echarts"
+    }],
+    ...
+}
+```

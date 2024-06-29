@@ -125,6 +125,8 @@ type SingleSeries struct {
 	AxisTick *opts.AxisTick `json:"axisTick,omitempty"`
 	Detail   *opts.Detail   `json:"detail,omitempty"`
 	Title    *opts.Title    `json:"title,omitempty"`
+	Min      int            `json:"min,omitempty"`
+	Max      int            `json:"max,omitempty"`
 
 	Large               types.Bool `json:"large,omitempty"`
 	LargeThreshold      int        `json:"largeThreshold,omitempty"`
@@ -194,6 +196,19 @@ func WithSeriesAnimation(enable bool) SeriesOpts {
 func WithSeriesSymbolKeepAspect(enable bool) SeriesOpts {
 	return func(s *SingleSeries) {
 		s.SymbolKeepAspect = opts.Bool(enable)
+	}
+}
+
+func WithAnimationOpts(opt opts.Animation) SeriesOpts {
+	return func(s *SingleSeries) {
+		s.Animation = opt.Animation
+		s.AnimationThreshold = opt.AnimationThreshold
+		s.AnimationDuration = opt.AnimationDuration
+		s.AnimationEasing = opt.AnimationEasing
+		s.AnimationDelay = opt.AnimationDelay
+		s.AnimationDurationUpdate = opt.AnimationDurationUpdate
+		s.AnimationEasingUpdate = opt.AnimationEasingUpdate
+		s.AnimationDelayUpdate = opt.AnimationDelayUpdate
 	}
 }
 
@@ -552,6 +567,39 @@ func WithMarkAreaNameCoordItemOpts(opt ...opts.MarkAreaNameCoordItem) SeriesOpts
 	}
 }
 
+// WithMarkAreaData0 sets the markArea.data.0
+func WithMarkAreaData0(data0 opts.MarkAreaData0) SeriesOpts {
+	return func(s *SingleSeries) {
+		if s.MarkAreas == nil {
+			s.MarkAreas = &opts.MarkAreas{}
+		}
+		s.MarkAreas.Data = append(s.MarkAreas.Data, data0)
+	}
+}
+
+// WithMarkAreaData1 sets the markArea.data.1
+func WithMarkAreaData1(data1 opts.MarkAreaData1) SeriesOpts {
+	return func(s *SingleSeries) {
+		if s.MarkAreas == nil {
+			s.MarkAreas = &opts.MarkAreas{}
+		}
+		s.MarkAreas.Data = append(s.MarkAreas.Data, data1)
+	}
+}
+
+// WithMarkAreaData sets the markArea.data each item as array
+// See https://echarts.apache.org/en/option.html#series-candlestick.markArea.data
+func WithMarkAreaData(datas ...[]opts.MarkAreaData) SeriesOpts {
+	return func(s *SingleSeries) {
+		if s.MarkAreas == nil {
+			s.MarkAreas = &opts.MarkAreas{}
+		}
+		for _, d := range datas {
+			s.MarkAreas.Data = append(s.MarkAreas.Data, d)
+		}
+	}
+}
+
 // WithMarkAreaNameXAxisItemOpts sets the X axis of the MarkLine.
 func WithMarkAreaNameXAxisItemOpts(opt ...opts.MarkAreaNameXAxisItem) SeriesOpts {
 	return func(s *SingleSeries) {
@@ -627,7 +675,9 @@ func (s *SingleSeries) ConfigureSeriesOpts(options ...SeriesOpts) {
 type MultiSeries []SingleSeries
 
 // SetSeriesOptions sets options for all the series.
-// Previous options will be overwrote every time hence setting them on the `AddSeries` if you want
+// NOTE:
+// It should be called after AddSeries, otherwise, the Options is no place to add on.
+// Previous options will be overwritten every time hence setting them on the `AddSeries` if you want
 // to customize each series individually
 //
 //	here -> ↓ <-

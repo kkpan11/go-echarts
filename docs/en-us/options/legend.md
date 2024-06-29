@@ -1,6 +1,9 @@
-package opts
+# Legend
+Legend component shows symbol, color and name of different series. You can click legends to toggle displaying series in the chart.
 
-import "github.com/go-echarts/go-echarts/v2/types"
+## Available Options
+```go
+package opts
 
 // Legend is the option set for a legend component.
 // Legend component shows symbol, color and name of different series. You can click legends to toggle displaying series in the chart.
@@ -138,3 +141,22 @@ type Legend struct {
 	// ItemStyle  item style.
 	ItemStyle *ItemStyle `json:"itemStyle,omitempty"`
 }
+
+```
+
+## Expect Format
+```js
+option = {
+  legend: {
+    align: "left",
+    textStyle: {
+      color: "#000000"
+    },
+    itemStyle: {
+      color: "rgba(159, 43, 43, 1)"
+    },
+      ...
+  },
+}
+
+```
