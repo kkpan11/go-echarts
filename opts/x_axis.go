@@ -8,7 +8,11 @@ type XAxis struct {
 	// Set this to false to prevent the axis from showing.
 	Show types.Bool `json:"show,omitempty"`
 
-	// Position The position of x axis.
+	// AlignTicks turned on to automatically align ticks when multiple numeric y axes.
+	// Only available for axes of type 'value' and 'log'.
+	AlignTicks types.Bool `json:"alignTicks,omitempty"`
+
+	// Position The position of x-axis.
 	// options:
 	// 'top'
 	// 'bottom'
@@ -25,6 +29,11 @@ type XAxis struct {
 	//   it decides to use month, week, day or hour for tick based on the range of span.
 	// * 'log' Log axis, suitable for log data.
 	Type string `json:"type,omitempty"`
+
+	// BoundaryGap is only available for category axis. true by default.
+	// When true, category labels sit at the left of each band and data points sit in the center.
+	// When false, the first and last categories reach the axis edges and data points align with their labels.
+	BoundaryGap types.Bool `json:"boundaryGap,omitempty"`
 
 	// Name of axis.
 	Name string `json:"name,omitempty"`
@@ -100,6 +109,9 @@ type XAxis struct {
 	// Split line of X axis in grid area.
 	SplitLine *SplitLine `json:"splitLine,omitempty"`
 
+	// Settings related to axis line.
+	AxisLine *AxisLine `json:"axisLine,omitempty"`
+
 	// Settings related to axis label.
 	AxisLabel *AxisLabel `json:"axisLabel,omitempty"`
 
@@ -153,7 +165,7 @@ type AxisLabel struct {
 	//    }
 	//    return texts.join('/');
 	// }
-	Formatter string `json:"formatter,omitempty"`
+	Formatter types.FuncStr `json:"formatter,omitempty"`
 
 	ShowMinLabel types.Bool `json:"showMinLabel"`
 	ShowMaxLabel types.Bool `json:"showMaxLabel"`
@@ -245,6 +257,8 @@ type AxisTick struct {
 
 	// Align axis tick with label, which is available only when boundaryGap is set to be true in category axis.
 	AlignWithLabel types.Bool `json:"alignWithLabel,omitempty"`
+
+	LineStyle *LineStyle `json:"lineStyle,omitempty"`
 }
 
 // AxisLine controls settings related to axis line.
